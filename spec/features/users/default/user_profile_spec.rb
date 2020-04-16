@@ -19,7 +19,7 @@ RSpec.describe "as a registered user when I visit my profile page", type: :featu
     click_button "Submit"
     expect(current_path).to eq("/profile")
 
-    expect(page).to have_content("Welcome #{user.name}!")
+    expect(page).to have_content("Logged in as #{user.name}!")
 
     within ".user-info" do
       expect(page).to have_content("#{user.name}")
