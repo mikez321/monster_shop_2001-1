@@ -63,3 +63,19 @@ Use the instructions below in combination with your terminal in order to learn m
 * Kevin McGrevey: https://github.com/kmcgrevey
 * Krista Stadler:  https://github.com/kristastadler
 * Mike Hernandez: https://github.com/mikez321
+
+### Update!  Added functionality!
+
+* As of 4/17 important changes to this repo were made to allow for bulk discounts.  Changes adhere to to the following user stories:
+
+* Bulk Items Landing Page:
+
+As a merchant employee, when I visit my merchant dashboard I see a link to "My Discounts."  When I click this link I am brought to my discounts page /merchant/discounts where I can see my current discounts.  If I am not running any discounts I see a message that says "There are no discounts at this time."
+
+* Add a Discount:
+
+As a merchant employee, when I am at my discounts page I see a link to Add a discount.  When I click this link I am brought to a page where I can create a custom discount.  When I click on the "Save Discount" I am brought back to my discounts page where I see my new current discount.
+
+* Users see discounts:
+
+As a user, when I have added items in my cart that qualify for a merchant's discount I see that discount reflected on the applicable item in my cart.
