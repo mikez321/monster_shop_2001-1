@@ -5,8 +5,9 @@
   <p>You have no discounts.</p>
   <% else %>
     <% @discounts.each do |discount| %>
-      <div class="discount-'#{discount.id}'">
+      <div class="discount-<% discount.id %>">
         <p><b><%= discount.name %></b>: <%= discount.description %></p>
+        <%= link_to "Delete Discount", "/merchant/discounts/#{discount.id}", method: :delete %>
       </div>
     <% end %>
   <% end %>
