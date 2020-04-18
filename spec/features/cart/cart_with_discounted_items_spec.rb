@@ -50,4 +50,29 @@ RSpec.describe "as a user, when I visit my cart, if I have items that qualify fo
       expect(page).to_not have_content("New Price:")
     end
   end
+
+  it "Only items from vendors with discounts get the item discount" do
+
+    kitchen_shop = Merchant.create(name: "The Bake Place", address: '117 Cake St.', city: 'Richmond', state: 'VA', zip: 23221)
+    corn_holder = kitchen_shop.items.create(name: "OXO Corn Holders", description: "Good for corny jokes", price: 10, image: "https://www.surlatable.com/dw/image/v2/BCJL_PRD/on/demandware.static/-/Sites-shop-slt-master-catalog/default/dw66439aea/images/large/1473222_01i_0414_s.jpg", inventory: 50)
+
+    5.times do
+      visit "items/#{corn_holder.id}"
+      click_on "Add To Cart"
+    end
+
+    visit "/cart"
+
+
+    within "#cart-item-#{@chain.id}" do
+      expect(page).to have_content("This item qualifies for a discount!")
+      expect(page).to have_content("#{@chain.price}")
+      expect(page).to have_content("New Price: $45.00")
+    end
+
+    within "#cart-item-#{corn_holder.id}" do
+      expect(page).to_not have_content("This item qualifies for a discount!")
+      expect(page).to_not have_content("New Price:")
+    end
+  end
 end
