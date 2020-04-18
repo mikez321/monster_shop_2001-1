@@ -67,11 +67,9 @@ class Item <ApplicationRecord
   end
 
   def discount_price
-    if has_discount
       new_price = discounts.map do |discount|
         price - (price * (discount.amount.to_f/100))
       end.min
-    end
   end
 
 end
