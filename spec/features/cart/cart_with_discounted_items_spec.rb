@@ -63,7 +63,6 @@ RSpec.describe "as a user, when I visit my cart, if I have items that qualify fo
 
     visit "/cart"
 
-
     within "#cart-item-#{@chain.id}" do
       expect(page).to have_content("This item qualifies for a discount!")
       expect(page).to have_content("#{@chain.price}")
@@ -74,5 +73,36 @@ RSpec.describe "as a user, when I visit my cart, if I have items that qualify fo
       expect(page).to_not have_content("This item qualifies for a discount!")
       expect(page).to_not have_content("New Price:")
     end
+  end
+
+  it "if multiple discounts exist the lowest price is applied" do
+    bogf = @bike_shop.discounts.create(name: "Insane Deals!", description: "Get a ridiculously good deal when you buy 7", amount: 90, quantity: 7)
+
+    visit "/cart"
+
+    within "#cart-item-#{@chain.id}" do
+      expect(page).to have_content("This item qualifies for a discount!")
+      expect(page).to have_content("#{@chain.price}")
+      expect(page).to have_content("New Price: $45.00")
+    end
+
+    2.times do
+      visit "items/#{@chain.id}"
+      click_on "Add To Cart"
+    end
+
+    visit "/cart"
+
+    within "#cart-item-#{@chain.id}" do
+      expect(page).to have_content("This item qualifies for a discount!")
+      expect(page).to have_content("#{@chain.price}")
+      expect(page).to_not have_content("New Price: $45.00")
+      expect(page).to have_content("New Price: $5.00")
+
+    end
+
+
+
+
   end
 end
