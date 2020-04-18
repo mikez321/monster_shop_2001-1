@@ -4,17 +4,20 @@ class Merchant::DiscountsController < Merchant::BaseController
   end
 
   def new
-    merchant = Merchant.find(current_user[:id])
-    @discount = merchant.discount.create(discount_params)
+    merchant = Merchant.find(current_user[:merchant_id])
+    @discount = merchant.discounts.new
   end
 
   def create
-    discount = Discount.create(discount_params)
+    merchant = Merchant.find(current_user[:merchant_id])
+    if merchant.discounts.create(discount_params)
+      redirect_to "/merchant/discounts"
+    end
   end
 
   private
 
   def discount_params
-    require "pry"; binding.pry
+    params[:discount].permit(:name, :description, :amount, :quantity)
   end
 end

@@ -60,7 +60,7 @@ Rails.application.routes.draw do
     patch "/orders/:order_id/:item_id", to: "orders#update"
     get "/discounts", to: "discounts#index"
     get "/discounts/new", to: "discounts#new"
-    get "/discounts/new", to: "discounts#create"
+    post "/discounts/new", to: "discounts#create"
   end
 
   namespace :profile do

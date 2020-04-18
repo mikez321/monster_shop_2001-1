@@ -46,7 +46,7 @@ RSpec.describe "as a merchant employee when I visit my merchant dashboard I see 
 
       fill_in "Name", with: "10 off 10"
       fill_in "Description", with: "10% off an item when you order 10 of them!"
-      fill_in "Percent", with: "10"
+      fill_in "Amount", with: "10"
       fill_in "Quantity", with: "10"
 
       click_button "Create Discount"

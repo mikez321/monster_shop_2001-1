@@ -6,8 +6,7 @@
   <% else %>
     <% @discounts.each do |discount| %>
       <div class="discount-'#{discount.id}'">
-        <%= @discount.name %><br>
-        <%= @discount.description %><br>
+        <p><b><%= discount.name %></b>: <%= discount.description %></p>
       </div>
     <% end %>
   <% end %>
