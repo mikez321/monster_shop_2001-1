@@ -7,11 +7,6 @@ RSpec.describe "as a user, when I visit my cart, if I have items that qualify fo
     @rusty_chain = @bike_shop.items.create(name: "Rusty Chain", description: "Its old and covered in rust.", price: 1, image: "https://thumbs.dreamstime.com/z/rusty-bicycle-chain-picture-blog-rusty-bicycle-chain-picture-blog-background-title-132179093.jpg", inventory: 1, active?:false)
     @bike_shop.discounts.create(name: "10 for 5", description: "Recieve 10% off an item when you purchase 5 or more", amount: 10, quantity: 5)
 
-    @review_1 = @chain.reviews.create(title: "Great place!", content: "They have great bike stuff and I'd recommend them to anyone.", rating: 5)
-    @review_2 = @chain.reviews.create(title: "Cool shop!", content: "They have cool bike stuff and I'd recommend them to anyone.", rating: 4)
-    @review_3 = @chain.reviews.create(title: "Meh place", content: "They have meh bike stuff and I probably won't come back", rating: 1)
-    @review_4 = @chain.reviews.create(title: "Not too impressed", content: "v basic bike shop", rating: 2)
-    @review_5 = @chain.reviews.create(title: "Okay place :/", content: "Brian's cool and all but just an okay selection of items", rating: 3)
     @user = User.create!(name: "Josh Tukman",
                           address: "756 Main St.",
                           city: "Denver",
@@ -27,6 +22,8 @@ RSpec.describe "as a user, when I visit my cart, if I have items that qualify fo
   end
 
   it "I see a message saying that I have items that qualify for discounts" do
+
+    require "pry"; binding.pry
 
     visit "/cart"
 
