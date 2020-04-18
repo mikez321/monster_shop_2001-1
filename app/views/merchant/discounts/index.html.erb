@@ -7,6 +7,7 @@
     <% @discounts.each do |discount| %>
       <div class="discount-<% discount.id %>">
         <p><b><%= discount.name %></b>: <%= discount.description %></p>
+        <%= link_to "Edit Discount", "/merchant/discounts/#{discount.id}/edit" %>
         <%= link_to "Delete Discount", "/merchant/discounts/#{discount.id}", method: :delete %>
       </div>
     <% end %>

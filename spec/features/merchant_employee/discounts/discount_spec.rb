@@ -58,25 +58,25 @@ RSpec.describe "as a merchant employee when I visit my merchant dashboard I see 
 
     end
 
-    # it "can edit discounts" do
-    #   tenofften = @dog_shop.discounts.create(name: "10 off 10", description: "10% off an item when you order 10 of them!", amount: 10, quantity: 10 )
-    #
-    #   visit "/merchant/discounts"
-    #
-    #   click_link "Edit Discount"
-    #
-    #   expect(page).to eq("/merchant/discounts/#{tenofften.id}/edit")
-    #
-    #   fill_in "Description", with : "Receieve a 10% discount on any item with a quantity of 10 or more!"
-    #
-    #   click_button "Edit Discount"
-    #
-    #   expect(current_path).to eq("/merchant/discounts")
-    #
-    #   expect(page).to have_content("10 off 10")
-    #   eppect(page).to have_content("Receieve a 10% discount on any item with a quantity of 10 or more!")
-    #   expect(page).to_not have_content("10% off an item when you order 10 of them!")
-    # end
+    it "can edit discounts" do
+      tenofften = @dog_shop.discounts.create(name: "10 off 10", description: "10% off an item when you order 10 of them!", amount: 10, quantity: 10 )
+
+      visit "/merchant/discounts"
+
+      click_link "Edit Discount"
+      
+      expect(page).to eq("/merchant/discounts/#{tenofften.id}/edit")
+
+      fill_in "Description", with: "Receieve a 10% discount on any item with a quantity of 10 or more!"
+
+      click_button "Edit Discount"
+
+      expect(current_path).to eq("/merchant/discounts")
+
+      expect(page).to have_content("10 off 10")
+      eppect(page).to have_content("Receieve a 10% discount on any item with a quantity of 10 or more!")
+      expect(page).to_not have_content("10% off an item when you order 10 of them!")
+    end
 
     it "can delete discounts" do
       tenofften = @dog_shop.discounts.create(name: "10 off 10", description: "10% off an item when you order 10 of them!", amount: 10, quantity: 10 )

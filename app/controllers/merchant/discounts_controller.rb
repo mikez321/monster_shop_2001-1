@@ -15,6 +15,13 @@ class Merchant::DiscountsController < Merchant::BaseController
     end
   end
 
+  def edit
+    @discount = Discount.find(params[:id])
+  end
+
+  def update
+  end
+
   def destroy
     Discount.destroy(params[:id])
     redirect_to "/merchant/discounts"
