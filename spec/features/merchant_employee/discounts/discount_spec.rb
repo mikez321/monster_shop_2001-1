@@ -27,9 +27,33 @@ RSpec.describe "as a merchant employee when I visit my merchant dashboard I see 
   describe "when I click the link I am brought to my discounts page /merchant/discouts" do
     it "If I have no discounts, I see a message saying I have no discounts" do
 
+      visit "/merchant"
+
+      click_link  "Discounts"
+
       visit "/merchant/discounts"
 
       expect(page).to have_content("You have no discounts.")
+
+    end
+
+    it "can add discounts" do
+      visit "/merchant/discounts"
+
+      click_link "Add a Discount"
+
+      expect(current_path).to eq("/merchant/discounts/new")
+
+      fill_in "Name", with: "10 off 10"
+      fill_in "Description", with: "10% off an item when you order 10 of them!"
+      fill_in "Percent", with: "10"
+      fill_in "Quantity", with: "10"
+
+      click_button "Create Discount"
+
+      expect(current_path).to eq("/merchant/discounts")
+
+      expect(page).to have_content("10 off 10")
 
     end
   end

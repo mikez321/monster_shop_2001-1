@@ -1,9 +1,14 @@
 <h1>Your Discounts</h1>
-<% if @discounts.length.zero?  %>
-<p>You have no discounts.</p>
-<% else %>
-  <% @discounts.each do |discount| %>
-    <%= @discount.name %><br>
-    <%= @discount.description %><br>
+<section class="discounts">
+  <%= link_to "Add a Discount", "/merchant/discounts/new", method: :get %>
+  <% if @discounts.length.zero?  %>
+  <p>You have no discounts.</p>
+  <% else %>
+    <% @discounts.each do |discount| %>
+      <div class="discount-'#{discount.id}'">
+        <%= @discount.name %><br>
+        <%= @discount.description %><br>
+      </div>
+    <% end %>
   <% end %>
-<% end %>
+</section>

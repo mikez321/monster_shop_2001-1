@@ -59,6 +59,8 @@ Rails.application.routes.draw do
     get "/orders/:order_id", to: "orders#show"
     patch "/orders/:order_id/:item_id", to: "orders#update"
     get "/discounts", to: "discounts#index"
+    get "/discounts/new", to: "discounts#new"
+    get "/discounts/new", to: "discounts#create"
   end
 
   namespace :profile do
