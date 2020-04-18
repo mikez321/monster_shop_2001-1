@@ -49,4 +49,8 @@ class Cart
     @contents[item_id] == 0
   end
 
+  def has_discounts?
+    require "pry"; binding.pry
+  end
+
 end

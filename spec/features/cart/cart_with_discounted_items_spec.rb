@@ -16,17 +16,24 @@ RSpec.describe "as a user, when I visit my cart, if I have items that qualify fo
                           password: "secret_password",
                           password_confirmation: "secret_password",
                           role: 0)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
-    @discount_order = @user.orders.create!(name: 'Josh', address: '123 Josh Ave', city: 'Broomfield', state: 'CO', zip: 82345)
-    ItemOrder.create!(order_id: @discount_order.id, item_id: @chain.id, price: @chain.price, quantity: 5)
+    5.times do
+      visit "items/#{@chain.id}"
+      click_on "Add To Cart"
+    end
+
+    visit "items/#{@rusty_chain.id}"
+    click_on "Add To Cart"
+
   end
 
-  it "I see a message saying that I have items that qualify for discounts" do
-
-    require "pry"; binding.pry
-
-    visit "/cart"
-
-    expect(page).to have_content("Your order has items that qualify for a bulk discount!")
-  end
+  # it "I see a message saying that I have items that qualify for discounts" do
+  #
+  #   visit "/cart"
+  #
+  #   within "#cart-item-#{@chain.id}" do
+  #     expect(page).to have_content("This item qualifies for a bulk discount!")
+  #   end
+  # end
 end

@@ -23,7 +23,7 @@
           </span>
         </p>
       </td>
-    
+
       <td>
         <p align = "center">
           <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}"%>
@@ -41,6 +41,7 @@
         </center>
         </td>
       <td>
+        <%= "This item qualifies for a bulk discount!" if item.has_discount? %>
         <p><%=number_to_currency(cart.subtotal(item))%></p>
     </td>
     </tr>
