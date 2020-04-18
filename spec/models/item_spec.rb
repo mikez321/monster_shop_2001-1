@@ -13,6 +13,8 @@ describe Item, type: :model do
     it {should have_many :reviews}
     it {should have_many :item_orders}
     it {should have_many(:orders).through(:item_orders)}
+    it {should have_many :discount_items}
+    it {should have_many(:discounts).through :discount_items}
   end
 
   describe "instance methods" do
@@ -83,7 +85,7 @@ describe Item, type: :model do
       order = @user.orders.create!(name: 'Josh', address: '123 Josh Ave', city: 'Broomfield', state: 'CO', zip: 82345)
       ItemOrder.create!(order_id: order.id, item_id: @chain.id, price: @chain.price, quantity: 4)
         expect(@chain.order_status(order.id)).to eq("Unfulfilled")
-    end     
+    end
 
     it 'status' do
       expect(@chain.status).to eq("active")
