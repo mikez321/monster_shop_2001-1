@@ -28,12 +28,10 @@ RSpec.describe "as a user, when I visit my cart, if I have items that qualify fo
 
   end
 
-  # it "I see a message saying that I have items that qualify for discounts" do
-  #
-  #   visit "/cart"
-  #
-  #   within "#cart-item-#{@chain.id}" do
-  #     expect(page).to have_content("This item qualifies for a bulk discount!")
-  #   end
-  # end
+  it "I see a message saying that I have items that qualify for discounts" do
+
+    visit "/cart"
+
+    expect(page).to have_content "You have discounted items in your cart!"
+  end
 end

@@ -50,7 +50,11 @@ class Cart
   end
 
   def has_discounts?
-    require "pry"; binding.pry
+    discount_items = @contents.map do |id, quantity|
+      item = Item.find(id)
+      item.has_discount(quantity)
+    end.flatten
+    !discount_items.all?(false)
   end
 
 end

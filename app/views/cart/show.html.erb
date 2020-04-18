@@ -3,6 +3,9 @@
   <h2>You must <%= link_to "register", "/register" %> or <%= link_to "log in", "/login" %> to finish the checkout process.</h2>
 <% end %>
 <% if !@items.empty? %>
+<% if cart.has_discounts? %>
+  <h2>You have discounted items in your cart!</h2>
+<% end %>
 <center>
 <table class = "cart-items">
   <tr>
@@ -41,7 +44,6 @@
         </center>
         </td>
       <td>
-        <%= "This item qualifies for a bulk discount!" if item.has_discount? %>
         <p><%=number_to_currency(cart.subtotal(item))%></p>
     </td>
     </tr>
