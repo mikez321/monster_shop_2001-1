@@ -110,4 +110,11 @@ RSpec.describe "as a user, when I visit my cart, if I have items that qualify fo
       expect(page).to have_content("$225.00")
     end
   end
+
+  it "checkout has discounted total" do
+    visit "/cart"
+    
+    expect(page).to have_content("Total: $226.00")
+    expect(page).to_not have_content("Total: $251.00")
+  end
 end
