@@ -37,6 +37,7 @@ describe Item, type: :model do
                             password: "secret_password",
                             password_confirmation: "secret_password",
                             role: 0)
+
     end
 
     it "calculate average review" do
@@ -90,6 +91,25 @@ describe Item, type: :model do
     it 'status' do
       expect(@chain.status).to eq("active")
       expect(@rusty_chain.status).to eq("inactive")
+    end
+
+    it 'has_discount?' do
+      order = @user.orders.create!(name: 'Josh', address: '123 Josh Ave', city: 'Broomfield', state: 'CO', zip: 82345)
+      @bike_shop.discounts.create(name: "10 for 5", description: "Recieve 10% off an item when you purchase 5 or more", amount: 10, quantity: 5)
+      ItemOrder.create!(order_id: order.id, item_id: @chain.id, price: @chain.price, quantity: 5)
+      ItemOrder.create!(order_id: order.id, item_id: @rusty_chain.id, price: @rusty_chain.price, quantity: 1)
+      expect(@chain.has_discount?).to eq(true)
+      expect(@rusty_chain.has_discount?).to eq(false)
+    end
+
+    it 'discount_price' do
+      order = @user.orders.create!(name: 'Josh', address: '123 Josh Ave', city: 'Broomfield', state: 'CO', zip: 82345)
+      ItemOrder.create!(order_id: order.id, item_id: @chain.id, price: @chain.price, quantity: 5)
+      @bike_shop.discounts.create(name: "10 for 5", description: "Recieve 10% off an item when you purchase 5 or more", amount: 10, quantity: 5)
+      item = order.items.first
+
+      expect(item.price).to eq(50)
+      expect(item.discount_price).to eq (45.0)
     end
   end
 

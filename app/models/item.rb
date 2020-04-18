@@ -61,4 +61,19 @@ class Item <ApplicationRecord
       "inactive"
   end
 
+  def has_discount?
+    items_in_order = ItemOrder.where(item_id: id).sum(:quantity)
+    discount = Discount.where(quantity: items_in_order)
+    discounts << discount
+    !discount.length.zero?
+  end
+
+  def discount_price
+    if has_discount?
+      new_price = discounts.map do |discount|
+        price - (price * (discount.amount.to_f/100))
+      end.min
+    end
+  end
+
 end
