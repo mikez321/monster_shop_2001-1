@@ -1,13 +1,5 @@
 <h1>Add a new Discount</h1>
 
-<%= form_for @discount, url: "/merchant/discounts/new", method: :post do |f| %>
-  <%= f.label :name  %>
-  <%= f.text_field :name  %><br>
-  <%= f.label :description  %>
-  <%= f.text_field :description  %><br>
-  <%= f.label :amount  %>
-  <%= f.text_field :amount  %><br>
-  <%= f.label :quantity  %>
-  <%= f.text_field :quantity  %><br>
-  <%= f.submit %>
-<% end %>
+<%= render partial: "form", locals: { object: @discount, 
+                                      method: :post,
+                                      url: "/merchant/discounts/new" } %>
