@@ -1,3 +1,5 @@
 <h1>Edit Discount</h1>
-<%= render partial: 'form', locals: {url: "/merchant/discounts/#{@discount.id}",
-                                     method: :put} %>
+
+<%= render partial: "form", locals: { url: "/merchant/discounts/#{@discount.id}",
+                                      method: :put,
+                                      } %>
