@@ -104,6 +104,7 @@ describe Item, type: :model do
       @bike_shop.discounts.create(name: "10 for 5", description: "Recieve 10% off an item when you purchase 5 or more", amount: 10, quantity: 5)
 
       expect(@chain.price).to eq(50)
+      
       @chain.has_discount(5)
       @chain.reload
       expect(@chain.discount_price).to eq (45.0)

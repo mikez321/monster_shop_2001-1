@@ -18,6 +18,7 @@
   </tr>
   <% @items.each do |item,quantity| %>
     <tr id= "cart-item-<%=item.id%>">
+      <%= "This item qualifies for a discount!" if !item.has_discount(quantity).length.zero? %>
       <td>
         <p align = "center">
           <span>
@@ -33,7 +34,12 @@
         </p>
       </td>
       <td>
-        <p><%=number_to_currency(item.price)%></p>
+        <% if item.discount_price %>
+        <p><s><%=number_to_currency(item.price)%></s></p>
+          <p>New Price: <%= number_to_currency(item.discount_price)%></p>
+        <% else %>
+          <p><%=number_to_currency(item.price)%></p>
+        <% end %>
       </td>
       <td>
         <center>

@@ -34,4 +34,20 @@ RSpec.describe "as a user, when I visit my cart, if I have items that qualify fo
 
     expect(page).to have_content "You have discounted items in your cart!"
   end
+
+  it "Items that have bulk discounts are discounted in my cart automatically" do
+    visit "/cart"
+
+    within "#cart-item-#{@chain.id}" do
+      expect(page).to have_content("This item qualifies for a discount!")
+      expect(page).to have_content("#{@chain.price}")
+      expect(page).to have_content("New Price: $45.00")
+    end
+
+    within "#cart-item-#{@rusty_chain.id}" do
+      expect(page).to_not have_content("This item qualifies for a discount!")
+      expect(page).to have_content("#{@rusty_chain.price}")
+      expect(page).to_not have_content("New Price:")
+    end
+  end
 end
