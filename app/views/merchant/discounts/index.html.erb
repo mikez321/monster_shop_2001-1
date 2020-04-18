@@ -1,0 +1,9 @@
+<h1>Your Discounts</h1>
+<% if @discounts.length.zero?  %>
+<p>You have no discounts.</p>
+<% else %>
+  <% @discounts.each do |discount| %>
+    <%= @discount.name %><br>
+    <%= @discount.description %><br>
+  <% end %>
+<% end %>
