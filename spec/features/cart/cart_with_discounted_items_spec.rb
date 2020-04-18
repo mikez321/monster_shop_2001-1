@@ -98,11 +98,16 @@ RSpec.describe "as a user, when I visit my cart, if I have items that qualify fo
       expect(page).to have_content("#{@chain.price}")
       expect(page).to_not have_content("New Price: $45.00")
       expect(page).to have_content("New Price: $5.00")
-
     end
+  end
 
+  it "subtotal reflects discount price" do
 
+    visit "/cart"
 
-
+    within "#cart-item-#{@chain.id}" do
+      expect(page).to_not have_content("250.00")
+      expect(page).to have_content("$225.00")
+    end
   end
 end
