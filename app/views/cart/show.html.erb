@@ -18,7 +18,6 @@
   </tr>
   <% @items.each do |item,quantity| %>
     <tr id= "cart-item-<%=item.id%>">
-      <%= "This item qualifies for a discount!" if !item.get_discounts(quantity).length.zero? %>
       <td>
         <p align = "center">
           <span>

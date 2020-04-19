@@ -5,7 +5,7 @@ RSpec.describe "as a user, when I visit my cart, if I have items that qualify fo
     @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
     @chain = @bike_shop.items.create(name: "Chain", description: "It'll never break!", price: 50, image: "https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588", inventory: 5)
     @rusty_chain = @bike_shop.items.create(name: "Rusty Chain", description: "Its old and covered in rust.", price: 1, image: "https://thumbs.dreamstime.com/z/rusty-bicycle-chain-picture-blog-rusty-bicycle-chain-picture-blog-background-title-132179093.jpg", inventory: 1, active?:false)
-    @bike_shop.discounts.create(name: "10 for 5", description: "Recieve 10% off an item when you purchase 5 or more", amount: 10, quantity: 5)
+    @bike_shop.discounts.create(n ame: "10 for 5", description: "Recieve 10% off an item when you purchase 5 or more", amount: 10, quantity: 5)
 
     @user = User.create!(name: "Josh Tukman",
                           address: "756 Main St.",
@@ -39,13 +39,11 @@ RSpec.describe "as a user, when I visit my cart, if I have items that qualify fo
     visit "/cart"
 
     within "#cart-item-#{@chain.id}" do
-      expect(page).to have_content("This item qualifies for a discount!")
       expect(page).to have_content("#{@chain.price}")
       expect(page).to have_content("New Price: $45.00")
     end
 
     within "#cart-item-#{@rusty_chain.id}" do
-      expect(page).to_not have_content("This item qualifies for a discount!")
       expect(page).to have_content("#{@rusty_chain.price}")
       expect(page).to_not have_content("New Price:")
     end
@@ -64,13 +62,11 @@ RSpec.describe "as a user, when I visit my cart, if I have items that qualify fo
     visit "/cart"
 
     within "#cart-item-#{@chain.id}" do
-      expect(page).to have_content("This item qualifies for a discount!")
       expect(page).to have_content("#{@chain.price}")
       expect(page).to have_content("New Price: $45.00")
     end
 
     within "#cart-item-#{corn_holder.id}" do
-      expect(page).to_not have_content("This item qualifies for a discount!")
       expect(page).to_not have_content("New Price:")
     end
   end
@@ -81,7 +77,6 @@ RSpec.describe "as a user, when I visit my cart, if I have items that qualify fo
     visit "/cart"
 
     within "#cart-item-#{@chain.id}" do
-      expect(page).to have_content("This item qualifies for a discount!")
       expect(page).to have_content("#{@chain.price}")
       expect(page).to have_content("New Price: $45.00")
     end
@@ -94,7 +89,6 @@ RSpec.describe "as a user, when I visit my cart, if I have items that qualify fo
     visit "/cart"
 
     within "#cart-item-#{@chain.id}" do
-      expect(page).to have_content("This item qualifies for a discount!")
       expect(page).to have_content("#{@chain.price}")
       expect(page).to_not have_content("New Price: $45.00")
       expect(page).to have_content("New Price: $5.00")
@@ -104,7 +98,6 @@ RSpec.describe "as a user, when I visit my cart, if I have items that qualify fo
   it "an item will automatically be returned to regular price if bulk conditions are not met" do
     visit "/cart"
     within "#cart-item-#{@chain.id}" do
-      expect(page).to have_content("This item qualifies for a discount!")
       expect(page).to have_content("#{@chain.price}")
       expect(page).to have_content("New Price: $45.00")
       click_button "Subtract Qty"
@@ -112,7 +105,6 @@ RSpec.describe "as a user, when I visit my cart, if I have items that qualify fo
 
     @chain.reload
     within "#cart-item-#{@chain.id}" do
-      expect(page).to_not have_content("This item qualifies for a discount!")
       expect(page).to have_content("#{@chain.price}")
       expect(page).to_not have_content("New Price: $45.00")
     end
