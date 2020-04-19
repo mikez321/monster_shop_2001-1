@@ -62,6 +62,7 @@ class Item <ApplicationRecord
   end
 
   def get_discounts(quantity)
+    discounts.clear
     discount = Discount.where(merchant_id: merchant_id, quantity: quantity)
     discounts << discount
   end
