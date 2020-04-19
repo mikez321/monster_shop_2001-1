@@ -61,7 +61,7 @@ class Item <ApplicationRecord
       "inactive"
   end
 
-  def has_discount(quantity)
+  def get_discounts(quantity)
     discount = Discount.where(merchant_id: merchant_id, quantity: quantity)
     discounts << discount
   end

@@ -96,16 +96,16 @@ describe Item, type: :model do
     it 'has_discount?' do
       @bike_shop.discounts.create(name: "10 for 5", description: "Recieve 10% off an item when you purchase 5 or more", amount: 10, quantity: 5)
 
-      expect(@chain.has_discount(5).length).to eq(1)
-      expect(@rusty_chain.has_discount(2).length).to eq(0)
+      expect(@chain.get_discounts(5).length).to eq(1)
+      expect(@rusty_chain.get_discounts(2).length).to eq(0)
     end
 
     it 'discount_price' do
       @bike_shop.discounts.create(name: "10 for 5", description: "Recieve 10% off an item when you purchase 5 or more", amount: 10, quantity: 5)
 
       expect(@chain.price).to eq(50)
-      
-      @chain.has_discount(5)
+
+      @chain.get_discounts(5)
       @chain.reload
       expect(@chain.discount_price).to eq (45.0)
     end

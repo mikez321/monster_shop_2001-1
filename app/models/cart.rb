@@ -57,7 +57,7 @@ class Cart
   def has_discounts?
     discount_items = @contents.map do |id, quantity|
       item = Item.find(id)
-      item.has_discount(quantity)
+      item.get_discounts(quantity)
     end.flatten
     !discount_items.all?(false)
   end
