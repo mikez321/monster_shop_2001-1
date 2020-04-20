@@ -6,4 +6,12 @@ RSpec.describe Discount, type: :model do
     it {should have_many :discount_items}
     it {should have_many(:items).through :discount_items}
   end
+
+  describe "validations" do
+    before(:each) do
+      it { should validate_presence_of :name }
+      # it { should validate_presence_of :amount }
+      # it { should validate_presence_of :quantity }
+    end
+  end
 end
