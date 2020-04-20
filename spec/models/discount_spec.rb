@@ -8,10 +8,8 @@ RSpec.describe Discount, type: :model do
   end
 
   describe "validations" do
-    before(:each) do
-      it { should validate_presence_of :name }
-      # it { should validate_presence_of :amount }
-      # it { should validate_presence_of :quantity }
-    end
+    it { should validate_presence_of :name }
+    it { should validate_presence_of :amount }
+    it { should validate_presence_of :quantity }
   end
 end
