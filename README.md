@@ -74,7 +74,7 @@ As a merchant employee, when I visit my merchant dashboard I see a link to "My D
 
 * Add a Discount:
 
-As a merchant employee, when I am at my discounts page I see a link to Add a discount.  When I click this link I am brought to a page where I can create a custom discount.  When I click on the "Save Discount" I am brought back to my discounts page where I see my new current discount.  I also see a flash message saying that I have added a discount.
+As a merchant employee, when I am at my discounts page I see a link to Add a discount.  When I click this link I am brought to a page where I can create a custom discount.  When I click on the "Save Discount" button I am brought back to my discounts page where I see my new discount.  I also see a flash message saying that I have added a discount.
 
 * Users see discounts:
 
@@ -87,14 +87,6 @@ As a user, if I have a discount on an item and then reach a better discount, I a
 * Edit a Discount:
 
 As a merchant employee, when I visit my discounts, I see a link next to each discount to edit the discount.  Here I am able to change parameters of the bulk discount.  I see a button to submit changes and when I click the button I am redirected to the discount page where I see my new changes to my discount.  I see a flash message telling me that my discount was successfully updated.
-
-* Disable a discount:
-
-As a merchant employee, when I visit my discount page, I see a link next to each enabled discount to disable that discount.  When I click this link I see a message saying that the discount was disabled.  A user will not be able to see a disabled discount.
-
-* Enable a discount:
-
-As a merchant employee, when I visit my discount page, I see a link next to each discount that is currently disabled to allow it to be enabled.  When I click this link I see a flash message that this discount has been enabled and this will now be available in users' carts.
 
 * Delete a discount:
 
