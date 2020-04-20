@@ -10,8 +10,13 @@ class Merchant::DiscountsController < Merchant::BaseController
 
   def create
     merchant = Merchant.find(current_user[:merchant_id])
-    if merchant.discounts.create(discount_params)
+    discount = merchant.discounts.new(discount_params)
+    if discount.save
+      flash[:success] = "Discount added!"
       redirect_to "/merchant/discounts"
+    else
+      flash[:error] = discount.errors.full_messages.to_sentence
+      redirect_back(fallback_location: "/")
     end
   end
 
@@ -21,12 +26,18 @@ class Merchant::DiscountsController < Merchant::BaseController
 
   def update
     discount = Discount.find(params[:id])
-    discount.update(discount_params)
-    redirect_to "/merchant/discounts"
+    if discount.update(discount_params)
+      flash[:success] = "Discount has been updated!"
+      redirect_to "/merchant/discounts"
+    else
+      flash[:error] = discount.errors.full_messages.to_sentence
+      redirect_back(fallback_location: "/")
+    end
   end
 
   def destroy
     Discount.destroy(params[:id])
+    flash[:success] = "Discount has been deleted."
     redirect_to "/merchant/discounts"
   end
 
