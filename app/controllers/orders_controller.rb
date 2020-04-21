@@ -12,19 +12,11 @@ class OrdersController <ApplicationController
     if order.save
       order.update(status: 0)
       cart.items.each do |item,quantity|
-        if item.discount_price
-          order.item_orders.create({
-            item: item,
-            quantity: quantity,
-            price: item.discount_price
-            })
-          else
-            order.item_orders.create({
-              item: item,
-              quantity: quantity,
-              price: item.price
-              })
-          end
+        order.item_orders.create({
+          item: item,
+          quantity: quantity,
+          price: item.final_price
+          })
         end
       session.delete(:cart)
       redirect_to "/profile/orders"

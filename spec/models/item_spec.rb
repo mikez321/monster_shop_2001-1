@@ -109,6 +109,22 @@ describe Item, type: :model do
       @chain.reload
       expect(@chain.discount_price).to eq (45.0)
     end
+
+    it 'final_price' do
+      @bike_shop.discounts.create(name: "10 for 5", description: "Recieve 10% off an item when you purchase 5 or more", amount: 10, quantity: 5)
+
+      expect(@chain.price).to eq(50)
+
+      @chain.get_discounts(5)
+      @chain.reload
+      expect(@chain.final_price).to eq (45.0)
+
+      expect(@rusty_chain.price).to eq(1)
+
+      @rusty_chain.get_discounts(1)
+      @rusty_chain.reload
+      expect(@rusty_chain.final_price).to eq(1)
+    end
   end
 
   describe "class methods" do

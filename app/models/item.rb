@@ -74,4 +74,9 @@ class Item <ApplicationRecord
     end.min
   end
 
+  def final_price
+    return discount_price if discount_price
+    price
+  end
+
 end
