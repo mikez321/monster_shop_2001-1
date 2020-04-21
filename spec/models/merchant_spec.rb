@@ -13,6 +13,7 @@ describe Merchant, type: :model do
     it {should have_many :items}
     it {should have_many :users}
     it {should have_many :discounts}
+    it {should have_many(:item_orders).through(:items)}
   end
 
   describe 'instance methods' do
@@ -107,6 +108,76 @@ describe Merchant, type: :model do
       expect(bike_shop.items_without_images).to eq([tire])
       expect(bike_shop.items_without_images).to_not include(pump)
       expect(bike_shop.items_without_images).to_not include(pedals)
+    end
+
+    it "unfulfilled_dollars" do
+      meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      gators = meg.items.create(name: "Gatorskin Tires", description: "Ride rough, but don't cut", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 20)
+      seat = meg.items.create(name: "Seat", description: "Cushy for your tushy.", price: 199, image: "https://www.rei.com/media/product/153242", inventory: 20)
+      pump = meg.items.create(name: "Pump", description: "Not just hot air", price: 70, image: "https://www.rei.com/media/product/152974", inventory: 20)
+
+      dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
+      pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
+
+      user = User.create!(name: "Josh Tukman",
+                            address: "756 Main St.",
+                            city: "Denver",
+                            state: "Colorado",
+                            zip: "80209",
+                            email: "josh.tgmail.com",
+                            password: "secret_password",
+                            password_confirmation: "secret_password",
+                            role: 0)
+
+      order_1 = user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+        order_1.item_orders.create!(item: gators,  price: gators.price, quantity: 2)
+        order_1.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 3)
+
+      order_2 = user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, status: 1)
+        order_2.item_orders.create!(item: gators, price: gators.price, quantity: 2)
+
+      order_3 = user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, status: 2)
+        order_3.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 1)
+
+      order_4 = user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, status: 3)
+        order_4.item_orders.create!(item: gators, price: gators.price, quantity: 2, status: "Unfulfilled")
+
+      expect(meg.num_pending_orders).to eq(3)
+    end
+
+    it "unfulfilled_dollars" do
+      meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      gators = meg.items.create(name: "Gatorskin Tires", description: "Ride rough, but don't cut", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 20)
+      seat = meg.items.create(name: "Seat", description: "Cushy for your tushy.", price: 199, image: "https://www.rei.com/media/product/153242", inventory: 20)
+      pump = meg.items.create(name: "Pump", description: "Not just hot air", price: 70, image: "https://www.rei.com/media/product/152974", inventory: 20)
+
+      dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
+      pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
+
+      user = User.create!(name: "Josh Tukman",
+                            address: "756 Main St.",
+                            city: "Denver",
+                            state: "Colorado",
+                            zip: "80209",
+                            email: "josh.tgmail.com",
+                            password: "secret_password",
+                            password_confirmation: "secret_password",
+                            role: 0)
+
+      order_1 = user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+        order_1.item_orders.create!(item: gators,  price: gators.price, quantity: 2)
+        order_1.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 3)
+
+      order_2 = user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, status: 1)
+        order_2.item_orders.create!(item: gators, price: gators.price, quantity: 2)
+
+      order_3 = user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, status: 2)
+        order_3.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 1)
+
+      order_4 = user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, status: 3)
+        order_4.item_orders.create!(item: gators, price: gators.price, quantity: 2, status: "Unfulfilled")
+
+      expect(meg.pending_money).to eq(600.0)
     end
   end
 

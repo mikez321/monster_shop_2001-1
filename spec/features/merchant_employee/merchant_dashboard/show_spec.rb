@@ -113,5 +113,13 @@ RSpec.describe "As a merchant employee", type: :feature do
       expect(page).not_to have_content("#{@dog_shop.name}")
       expect(page).not_to have_content("#{@pull_toy.name}")
     end
+
+    it "I can see how many pending orders I have and how much money they are worth" do
+      visit "/merchant"
+
+      within ".unfulfilled" do
+        expect(page).to have_content("You have #{@bike_shop.num_pending_orders} orders worth #{@bike_shop.pending_money}.")
+      end
+    end
   end
 end

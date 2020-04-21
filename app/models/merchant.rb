@@ -37,4 +37,15 @@ class Merchant <ApplicationRecord
     Item.where(merchant_id: id, image: nil)
   end
 
+  def num_pending_orders
+    pending_orders.length
+  end
+
+  def pending_money
+    unfulfilled = item_orders.where(status: "Unfulfilled")
+    unfulfilled.map do |item_order|
+      item_order.price * item_order.quantity
+    end.sum
+  end
+
 end
