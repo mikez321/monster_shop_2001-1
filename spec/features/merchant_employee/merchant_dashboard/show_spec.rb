@@ -115,10 +115,16 @@ RSpec.describe "As a merchant employee", type: :feature do
     end
 
     it "I can see how many pending orders I have and how much money they are worth" do
+
+      order1 = @josh.orders.create!(name: 'Josh', address: '123 Josh Ave', city: 'Broomfield', state: 'CO', zip: 82345, status: 1)
+      order1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
+
       visit "/merchant"
 
+      save_and_open_page
+
       within ".unfulfilled" do
-        expect(page).to have_content("You have #{@bike_shop.num_pending_orders} orders worth #{@bike_shop.pending_money}.")
+        expect(page).to have_content("You have 1 order worth $200.00")
       end
     end
   end

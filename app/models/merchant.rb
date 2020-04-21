@@ -34,7 +34,7 @@ class Merchant <ApplicationRecord
   end
 
   def items_without_images
-    Item.where(merchant_id: id, image: nil)
+    Item.where(merchant_id: id, image: [nil, ""])
   end
 
   def num_pending_orders
