@@ -97,7 +97,15 @@ RSpec.describe("Order Creation") do
         expect(page).to have_content("New Price: $1.80")
       end
 
-      expect(page).to have_button("Create Order")
+      fill_in :name, with: @josh.name
+      fill_in :address, with: @josh.address
+      fill_in :city, with: @josh.city
+      fill_in :state, with: @josh.state
+      fill_in :zip, with: @josh.zip
+
+      click_button("Create Order")
+
+      expect(current_path).to eq("/profile/orders")
     end
   end
 end
