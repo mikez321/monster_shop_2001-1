@@ -121,8 +121,6 @@ RSpec.describe "As a merchant employee", type: :feature do
 
       visit "/merchant"
 
-      save_and_open_page
-
       within ".unfulfilled" do
         expect(page).to have_content("You have 1 order worth $200.00")
       end

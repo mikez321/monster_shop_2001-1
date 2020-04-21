@@ -102,11 +102,11 @@ describe Merchant, type: :model do
     it "items_without_images" do
       bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 80203)
       tire = bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, inventory: 12)
-      pump = bike_shop.items.create(name: "Pump", description: "Not just hot air", price: 70, image: "https://www.rei.com/media/product/152974", inventory: 20)
+      pump = bike_shop.items.create(name: "Pump", description: "Not just hot air", price: 70, image: "", inventory: 20)
       pedals = bike_shop.items.create(name: "Pedals", description: "Clipless bliss!", price: 210, image: "https://www.rei.com/media/product/130015", inventory: 20)
 
-      expect(bike_shop.items_without_images).to eq([tire])
-      expect(bike_shop.items_without_images).to_not include(pump)
+      expect(bike_shop.items_without_images).to include(tire)
+      expect(bike_shop.items_without_images).to include(pump)
       expect(bike_shop.items_without_images).to_not include(pedals)
     end
 
