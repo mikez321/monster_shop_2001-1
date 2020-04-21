@@ -26,6 +26,32 @@ RSpec.describe Cart do
       expect(@cart.contents).to eq(expected)
     end
 
+    it "add_item" do
+      starting = {
+        @chain.id.to_s => 4,
+        @rusty_chain.id.to_s => 1
+      }
+
+      adding = {
+        @chain.id.to_s => 5,
+        @rusty_chain.id.to_s => 1
+      }
+
+      new = {
+        @chain.id.to_s => 5,
+        @rusty_chain.id.to_s => 1,
+        "4444" => 1
+      }
+
+      expect(@cart.contents).to eq(starting)
+
+      @cart.add_item(@chain.id.to_s)
+      expect(@cart.contents).to eq(adding)
+
+      @cart.add_item("4444")
+      expect(@cart.contents).to eq(new)
+    end
+
     it "total_items" do
       expect(@cart.total_items).to eq(5)
     end
