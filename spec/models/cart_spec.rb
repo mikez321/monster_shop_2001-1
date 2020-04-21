@@ -56,8 +56,44 @@ RSpec.describe Cart do
       expect(@cart.total_items).to eq(5)
     end
 
+    it "items" do
+      expected = {
+        @chain => 4,
+        @rusty_chain => 1
+      }
+
+      expect(@cart.items).to eq(expected)
+    end
+
+    it "subtotal (no discounts)" do
+      expect(@cart.subtotal(@chain)).to eq(200)
+    end
+
+    it "subtotal (with discounts)" do
+      expect(@discount_cart.subtotal(@chain)).to eq(225.0)
+    end
+
     it "total" do
       expect(@cart.total).to eq(201)
+    end
+
+    it "add quantity" do
+      expect(@cart.add_quantity(@chain.id.to_s)).to eq(5)
+    end
+
+    it "limit_reached" do
+      expect(@cart.limit_reached?(@chain.id.to_s)).to eq(false)
+      expect(@discount_cart.limit_reached?(@chain.id.to_s)).to eq(true)
+    end
+
+    it "subtract_quantity" do
+      expected = {
+        @chain.id.to_s => 3,
+        @rusty_chain.id.to_s => 1
+      }
+
+      @cart.subtract_quantity(@chain.id.to_s)
+      expect(@cart.contents).to eq(expected)
     end
 
     it "quantity_zero" do
