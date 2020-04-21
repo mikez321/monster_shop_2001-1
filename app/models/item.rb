@@ -3,6 +3,8 @@ class Item <ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :item_orders
   has_many :orders, through: :item_orders
+  has_many :discount_items
+  has_many :discounts, through: :discount_items
 
   validates_presence_of :name,
                         :description,
@@ -57,6 +59,24 @@ class Item <ApplicationRecord
   def status
     return "active" if active?
       "inactive"
+  end
+
+  def get_discounts(quantity)
+    discounts.clear
+    discount = Discount.where("quantity <= #{quantity}")
+                       .where(merchant_id: merchant_id)
+    discounts << discount
+  end
+
+  def discount_price
+    new_price = discounts.map do |discount|
+      price - (price * (discount.amount.to_f/100))
+    end.min
+  end
+
+  def final_price
+    return discount_price if discount_price
+    price
   end
 
 end

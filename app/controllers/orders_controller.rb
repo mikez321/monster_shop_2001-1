@@ -15,7 +15,7 @@ class OrdersController <ApplicationController
         order.item_orders.create({
           item: item,
           quantity: quantity,
-          price: item.price
+          price: item.final_price
           })
         end
       session.delete(:cart)

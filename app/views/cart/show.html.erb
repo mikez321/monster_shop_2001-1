@@ -3,6 +3,9 @@
   <h2>You must <%= link_to "register", "/register" %> or <%= link_to "log in", "/login" %> to finish the checkout process.</h2>
 <% end %>
 <% if !@items.empty? %>
+<% if cart.has_discounts? %>
+  <h2>You have discounted items in your cart!</h2>
+<% end %>
 <center>
 <table class = "cart-items">
   <tr>
@@ -23,14 +26,19 @@
           </span>
         </p>
       </td>
-    
+
       <td>
         <p align = "center">
           <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}"%>
         </p>
       </td>
       <td>
-        <p><%=number_to_currency(item.price)%></p>
+        <% if item.discount_price %>
+        <p><s><%=number_to_currency(item.price)%></s></p>
+          <p>New Price: <%= number_to_currency(item.discount_price)%></p>
+        <% else %>
+          <p><%=number_to_currency(item.price)%></p>
+        <% end %>
       </td>
       <td>
         <center>

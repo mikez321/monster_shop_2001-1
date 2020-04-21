@@ -23,12 +23,14 @@ class Cart
   end
 
   def subtotal(item)
-    item.price * @contents[item.id.to_s]
+    item.get_discounts(@contents[item.id.to_s])
+    item.final_price * @contents[item.id.to_s]
   end
 
   def total
     @contents.sum do |item_id,quantity|
-      Item.find(item_id).price * quantity
+      item = Item.find(item_id)
+      subtotal(item)
     end
   end
 
@@ -47,6 +49,14 @@ class Cart
 
   def quantity_zero?(item_id)
     @contents[item_id] == 0
+  end
+
+  def has_discounts?
+    discount_items = @contents.map do |id, quantity|
+      item = Item.find(id)
+      item.get_discounts(quantity)
+    end.flatten
+    !discount_items.all?(false)
   end
 
 end

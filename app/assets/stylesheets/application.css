@@ -214,3 +214,7 @@ tr:nth-child(even) {
   margin: 20px'
   padding: 20px'
 }
+
+.discounts {
+  text-align: center;
+}

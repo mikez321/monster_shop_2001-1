@@ -13,6 +13,8 @@ describe Item, type: :model do
     it {should have_many :reviews}
     it {should have_many :item_orders}
     it {should have_many(:orders).through(:item_orders)}
+    it {should have_many :discount_items}
+    it {should have_many(:discounts).through :discount_items}
   end
 
   describe "instance methods" do
@@ -35,6 +37,7 @@ describe Item, type: :model do
                             password: "secret_password",
                             password_confirmation: "secret_password",
                             role: 0)
+
     end
 
     it "calculate average review" do
@@ -83,11 +86,44 @@ describe Item, type: :model do
       order = @user.orders.create!(name: 'Josh', address: '123 Josh Ave', city: 'Broomfield', state: 'CO', zip: 82345)
       ItemOrder.create!(order_id: order.id, item_id: @chain.id, price: @chain.price, quantity: 4)
         expect(@chain.order_status(order.id)).to eq("Unfulfilled")
-    end     
+    end
 
     it 'status' do
       expect(@chain.status).to eq("active")
       expect(@rusty_chain.status).to eq("inactive")
+    end
+
+    it 'has_discount?' do
+      @bike_shop.discounts.create(name: "10 for 5", description: "Recieve 10% off an item when you purchase 5 or more", amount: 10, quantity: 5)
+
+      expect(@chain.get_discounts(5).length).to eq(1)
+      expect(@rusty_chain.get_discounts(2).length).to eq(0)
+    end
+
+    it 'discount_price' do
+      @bike_shop.discounts.create(name: "10 for 5", description: "Recieve 10% off an item when you purchase 5 or more", amount: 10, quantity: 5)
+
+      expect(@chain.price).to eq(50)
+
+      @chain.get_discounts(5)
+      @chain.reload
+      expect(@chain.discount_price).to eq (45.0)
+    end
+
+    it 'final_price' do
+      @bike_shop.discounts.create(name: "10 for 5", description: "Recieve 10% off an item when you purchase 5 or more", amount: 10, quantity: 5)
+
+      expect(@chain.price).to eq(50)
+
+      @chain.get_discounts(5)
+      @chain.reload
+      expect(@chain.final_price).to eq (45.0)
+
+      expect(@rusty_chain.price).to eq(1)
+
+      @rusty_chain.get_discounts(1)
+      @rusty_chain.reload
+      expect(@rusty_chain.final_price).to eq(1)
     end
   end
 

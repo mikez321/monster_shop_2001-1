@@ -1,0 +1,15 @@
+<h1>Your Discounts</h1>
+<section class="discounts">
+  <%= link_to "Add a Discount", "/merchant/discounts/new", method: :get %>
+  <% if @discounts.length.zero?  %>
+  <p>You have no discounts.</p>
+  <% else %>
+    <% @discounts.each do |discount| %>
+      <div class="discount-<% discount.id %>">
+        <p><b><%= discount.name %></b>: <%= discount.description %></p>
+        <%= link_to "Edit Discount", "/merchant/discounts/#{discount.id}/edit" %>
+        <%= link_to "Delete Discount", "/merchant/discounts/#{discount.id}", method: :delete %>
+      </div>
+    <% end %>
+  <% end %>
+</section>

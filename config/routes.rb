@@ -58,6 +58,12 @@ Rails.application.routes.draw do
     post "/:merchant_id/items", to: "items#create"
     get "/orders/:order_id", to: "orders#show"
     patch "/orders/:order_id/:item_id", to: "orders#update"
+    get "/discounts", to: "discounts#index"
+    get "/discounts/new", to: "discounts#new"
+    post "/discounts/new", to: "discounts#create"
+    get "/discounts/:id/edit", to: "discounts#edit"
+    put "/discounts/:id", to: "discounts#update"
+    delete "/discounts/:id", to: "discounts#destroy"
   end
 
   namespace :profile do
