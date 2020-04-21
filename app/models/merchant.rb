@@ -33,4 +33,8 @@ class Merchant <ApplicationRecord
     orders.distinct(:id)
   end
 
+  def items_without_images
+    Item.where(merchant_id: id, image: nil)
+  end
+
 end

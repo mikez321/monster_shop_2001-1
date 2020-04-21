@@ -18,3 +18,13 @@
      <h3>Total Value: $<%= order.merchant_item_subtotal(@merchant.id) %></h3>
   </section>
 <%end %>
+
+<section>
+  <h2>"To Do:"</h2>
+  <section class="images">
+    <p>The following items do not have an image:</p>
+    <% @merchant.items_without_images.each do |item|%>
+      <%= link_to "#{item.name}", "/merchant/items/#{item.id}/edit" %><br>
+    <% end %>
+  </section>
+</section>
