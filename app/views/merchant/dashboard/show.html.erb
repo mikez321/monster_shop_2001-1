@@ -24,9 +24,13 @@
   <section class="images">
     <ul>
       <h3>The following items do not have an image:</h3>
+      <% if @merchant.items_without_images.length.zero? %>
+      <p>All items have images! Great!</p>
+      <% else %>
         <% @merchant.items_without_images.each do |item|%>
-        <li><%= link_to "#{item.name}", "/merchant/items/#{item.id}/edit" %></li>
-      <% end %>
+          <li><%= link_to "#{item.name}", "/merchant/items/#{item.id}/edit" %></li>
+        <% end %>
+      <%end %>
     </ul>
   </section>
 </section>

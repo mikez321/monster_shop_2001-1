@@ -39,6 +39,16 @@ RSpec.describe "Merchant To Do List", type: :feature do
       end
 
       expect(current_path).to eq("/merchant/items/#{@tire.id}/edit")
+
+      fill_in "Image", with: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588"
+
+      click_button "Update Item"
+
+      expect(current_path).to eq("/merchant/items")
+
+      visit "/merchant"
+      expect(page).to have_content("The following items do not have an image:")
+      expect(page).to have_content("All items have images! Great!")
     end
   end
 end
