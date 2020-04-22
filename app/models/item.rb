@@ -48,7 +48,7 @@ class Item <ApplicationRecord
   end
 
   def subtotal(order)
-    price * order_qty_purchased(order)
+    final_price * order_qty_purchased(order)
   end
 
 

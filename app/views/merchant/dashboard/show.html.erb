@@ -18,3 +18,18 @@
      <h3>Total Value: $<%= order.merchant_item_subtotal(@merchant.id) %></h3>
   </section>
 <%end %>
+
+<section>
+  <h2>To Do:</h2>
+  <section class="images">
+    <ul>
+      <h3>The following items do not have an image:</h3>
+        <% @merchant.items_without_images.each do |item|%>
+        <li><%= link_to "#{item.name}", "/merchant/items/#{item.id}/edit" %></li>
+      <% end %>
+    </ul>
+  </section>
+</section>
+<section class="unfulfilled">
+  <h3 style="text-align:center">You have <%= @merchant.num_pending_orders %> <%= 'order'.pluralize(@merchant.num_pending_orders) %> worth <%= number_to_currency(@merchant.pending_money) %></h3>
+</section>

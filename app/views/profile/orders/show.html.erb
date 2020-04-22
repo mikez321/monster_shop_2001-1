@@ -20,7 +20,7 @@
         <td><%= image_tag(item.image, :style => "width: 75px") %></td>
         <td><%= item.description %></td>
         <td><%= item.order_qty_purchased(@order.id)%></td>
-        <td>$<%= item.price %></td>
+        <td>$<%= item.final_price %></td>
         <td>$<%= item.subtotal(@order.id) %></td>
       </tr>
     <% end %>
@@ -35,5 +35,3 @@
     <%= link_to "Cancel This Order", "/orders/#{@order.id}", method: :delete %>
   <% end %>
 </center>
-
-
