@@ -9,7 +9,7 @@ The Monster Shop project is an interactive shopping website that allows a users 
 Use the instructions below in combination with your terminal in order to learn more about this project:
 
   1. Clone this repository:
-    ```git@github.com:kmcgrevey/monster_shop_2001.git```
+    ```https://github.com/mikez321/monster_shop_2001-Group```
 
   2. Install the necessary gems:
     ```bundle install``` &
