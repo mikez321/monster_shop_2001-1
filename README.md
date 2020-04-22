@@ -56,7 +56,7 @@ Use the instructions below in combination with your terminal in order to learn m
 ![schema visual](https://github.com/mikez321/monster_shop_2001-Group/blob/master/app/assets/images/Screen%20Shot%202020-04-21%20at%209.29.09%20PM.png)
 
 ## Link to Application in Production
-* https://jkkm-monster-shop.herokuapp.com/
+* https://enigmatic-eyrie-89611.herokuapp.com/
 
 ## Links to Contributor Github Profiles
 * Josh Tukman: https://github.com/Joshua-Tukman
