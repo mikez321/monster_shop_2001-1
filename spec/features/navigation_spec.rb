@@ -31,7 +31,7 @@ RSpec.describe 'Site Navigation' do
       within 'nav' do
         expect(page).to have_content("Cart: 0")
       end
-
     end
+
   end
 end
