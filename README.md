@@ -9,7 +9,7 @@ The Monster Shop project is an interactive shopping website that allows a users 
 Use the instructions below in combination with your terminal in order to learn more about this project:
 
   1. Clone this repository:
-    ```git@github.com:kmcgrevey/monster_shop_2001.git```
+    ```https://github.com/mikez321/monster_shop_2001-Group```
 
   2. Install the necessary gems:
     ```bundle install``` &
@@ -53,10 +53,10 @@ Use the instructions below in combination with your terminal in order to learn m
   - Use `rails routes` to get additional information about the routes that exist in a Rails application
 
 ### Visual Representation of the Schema
-![schema visual](https://raw.githubusercontent.com/kmcgrevey/monster_shop_2001/master/app/assets/images/Screen%20Shot%202020-04-16%20at%2010.45.07%20AM.png)
+![schema visual](https://github.com/mikez321/monster_shop_2001-Group/blob/master/app/assets/images/Screen%20Shot%202020-04-21%20at%209.29.09%20PM.png)
 
 ## Link to Application in Production
-* https://jkkm-monster-shop.herokuapp.com/
+* https://enigmatic-eyrie-89611.herokuapp.com/
 
 ## Links to Contributor Github Profiles
 * Josh Tukman: https://github.com/Joshua-Tukman
@@ -91,3 +91,11 @@ As a merchant employee, when I visit my discounts, I see a link next to each dis
 * Delete a discount:
 
 As a merchant employee, when I visit my discount page, I see a link next to each discount to delete the discount.  When I click the link I see a flash message telling me that my discount was successfully deleted and it is no longer in my discount list.  Users will no longer be able to access this discount.
+
+* To Do Page:
+
+As a merchant employee, when I visit my dashboard I see a section that tells me what (if any) of my items do not have images.  Each item missing an image is a link to that item's edit page.  If I do not have any items missing images I am made aware of that too.
+
+* Open Orders:
+
+As a merchant employee when I visit my dashboard I see a piece of information telling me how many orders I have that are not fulfilled and how much the total is for those orders.
