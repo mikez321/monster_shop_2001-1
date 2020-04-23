@@ -3,6 +3,7 @@ class Merchant <ApplicationRecord
   has_many :item_orders, through: :items
   has_many :users
   has_many :discounts
+  has_many :orders, through: :item_orders
 
   validates_presence_of :name,
                         :address,

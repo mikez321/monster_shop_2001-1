@@ -13,6 +13,7 @@ describe Order, type: :model do
     it {should belong_to :user}
     it {should have_many :item_orders}
     it {should have_many(:items).through(:item_orders)}
+    it {should have_many(:discount_items).through(:items)}
   end
 
   describe "status" do
@@ -101,7 +102,7 @@ describe Order, type: :model do
     @order_4.fulfill_item(@tire)
     expect(@tire.inventory).to eq(10)
     @order_4.cancel_order
-    @tire.reload  
+    @tire.reload
     expect(@tire.inventory).to eq(12)
 
     expect(@order_4.item_orders.first.status).to eq("Unfulfilled")
