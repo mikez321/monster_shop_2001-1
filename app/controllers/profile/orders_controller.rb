@@ -5,7 +5,7 @@ class Profile::OrdersController < Profile::BaseController
   end
 
   def show
-    @order = Order.find(params[:order_id])
+    @order = Order.find(params[:id])
   end
 
 end
