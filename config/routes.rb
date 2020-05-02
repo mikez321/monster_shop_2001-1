@@ -83,8 +83,8 @@ Rails.application.routes.draw do
     # get "/items/:id/edit", to: "items#edit"
     # get "/items/new", to: "items#new"
     post "/:merchant_id/items", to: "items#create"
-    get "/orders/:order_id", to: "orders#show"
-    patch "/orders/:order_id/:item_id", to: "orders#update"
+    resources :orders, only: [:show]
+    patch "/orders/:id/:item_id", to: "orders#update"
     resources :discounts, except: [:show]
     # get "/discounts", to: "discounts#index"
     # get "/discounts/new", to: "discounts#new"
